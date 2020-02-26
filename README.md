@@ -1,2 +1,5 @@
-# flask_tutorial
--
+
+
+### install
+pip3 install flask flask-sqlalchemy
+
