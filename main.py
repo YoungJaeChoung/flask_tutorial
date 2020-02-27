@@ -5,48 +5,84 @@
 
 from flask import Flask
 from flask import render_template
+from flask import request
+from flask import redirect
 from flask_sqlalchemy import SQLAlchemy
-from todo.todo import make_todo_instance
 
 from utils.db_related import make_db_file
-from TDD.test import check_database_uri_str
+from utils.db_related import set_db_uri
+from utils.db_related import get_all_table_names
 
+from utils.port_related import get_port_not_used
+
+
+# init
+debug = True
 db_name = "test"
 
-app = Flask(__name__)
-# ///: relative path | ////: absolute path
-database_uri = "SQLALCHEMY_DATABASE_URI"
-assert check_database_uri_str(database_uri)
-app.config[database_uri] = "sqlite:///{}.db".format(db_name)
+app = Flask(import_name=__name__,
+            static_folder="static",
+            template_folder="templates",
+            root_path=None)
 
-
+app = set_db_uri(app, db_type="sqlite", db_name="test")
 db = SQLAlchemy(app)
 make_db_file(db, db_name)
 
-todo = make_todo_instance(db)
-# TODO: 아래 메시지 뭐지 ... ?
-""" 
-/Users/youngjae/Documents/python_venv/flask_tutorial/lib/python3.6/site-packages/flask_sqlalchemy/__init__.py:835: 
-FSADeprecationWarning: SQLALCHEMY_TRACK_MODIFICATIONS adds significant overhead 
-and will be disabled by default in the future.
-Set it to True or False to suppress this warning.
-  'SQLALCHEMY_TRACK_MODIFICATIONS adds significant overhead and '
-"""
+
+# TODO: table class 와 route function 을 따로 넣어두려면 어떻게 하지 ... ?
+class ToDo(db.Model):
+    __tablename__ = "ToDo"
+
+    from datetime import datetime
+    id = db.Column(db.Integer, primary_key=True)
+    content = db.Column(db.String(200), nullable=False)
+    date_created = db.Column(db.DateTime, default=datetime.utcnow)
+
+    def __repr__(self):
+        return "<{} Task {}>".format(self.__tablename__, self.id)
 
 
+table_names = get_all_table_names(db, verbose=True)
 
 
-""" 1. not using render_template
-@app.route("/")
-def index():
-    return "Hello, World"
-"""
+# TODO: @app.route 어떻게 작동하는걸까 ... ?
+@app.route("/", methods=["POST", "GET"])
+def home():
+    if request.method == "POST":
+        # return "Hello"
+        # TODO: request 는 어떻게 content 를 가져오지 ... ?
+        task_content = request.form["content"]
+        new_task = ToDo(content=task_content)   # TODO: 이거 어떻게 하지 ... ?
 
-# ver 2. using render template
-@app.route("/")
-def index():
-    return render_template("index.html")
+        try:
+            db.session.add(new_task)
+            db.session.commit()
+
+            return redirect("/")
+        except:
+            print("There was an issue adding your task")
+    else:
+        tasks = ToDo.query.order_by(ToDo.date_created).all()
+        # TODO: 여기에 tasks 가 어떻게 html 로 가는걸까 ... ?
+        """
+        sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) no such table: to_do
+        [SQL: SELECT to_do.id AS to_do_id, to_do.content AS to_do_content, to_do.date_created AS to_do_date_created 
+        FROM to_do ORDER BY to_do.date_created]
+        (Background on this error at: http://sqlalche.me/e/e3q8)
+        """
+        return render_template("index.html", tasks=tasks)
 
 
 if __name__ == "__main__":
-    app.run(debug=True, port=5009)
+    port = get_port_not_used(port=5000)
+    app.run(debug=debug, port=port)
+
+
+
+
+
+
+
+
+
