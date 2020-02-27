@@ -30,7 +30,7 @@ def make_db_file(db, db_name):
         db.create_all()
 
 
-def set_db_uri(app, db_type: str, db_name: str, set_relative_path=True):
+def set_db_uri(app, db_type, db_name, set_relative_path=True):
     """
     :param app:
     :param db_type: (str) "sqlite"
