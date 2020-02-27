@@ -1,4 +1,4 @@
-from utils import flask_app
+from database import flask_app
 from utils.db_related import get_all_table_names
 
 

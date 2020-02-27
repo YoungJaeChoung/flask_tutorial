@@ -4,7 +4,7 @@
 # TODO: 라이브러리 설치되어 있는 가상환경 설정 /// library 이름 나오게 하려면
 
 from utils.port_related import get_port_not_used
-from utils import flask_app
+from database import flask_app
 
 # init
 debug = True

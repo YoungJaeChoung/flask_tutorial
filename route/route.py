@@ -1,9 +1,8 @@
 from flask import render_template
 from flask import request
 from flask import redirect
-from utils.table_class import ToDo
-from utils import flask_app
-
+from database.table_class import ToDo
+from database import flask_app
 
 app = flask_app.app
 db = flask_app.db
