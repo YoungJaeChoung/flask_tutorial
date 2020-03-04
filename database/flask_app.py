@@ -12,11 +12,11 @@ from TDD.test import check_not_none
 db_name = "test"
 assert check_not_none(db_name)
 
-
+root_path = "/Users/youngjae/Documents/analysis/git/codes/flask_tutorial"
 app = Flask(import_name=__name__,
             static_folder="static",
             template_folder="templates",
-            root_path=None)
+            root_path=root_path)
 
 app = set_db_uri(app, db_type="sqlite", db_name=db_name)
 db = SQLAlchemy(app)

@@ -17,7 +17,7 @@ def get_all_table_names(db, verbose=True):
 def make_db_file(db, db_name):
     import os 
 
-    file_names = os.listdir()
+    file_names = os.listdir(os.getcwd() + "/database")
     n_files = len(file_names)
     db_exists = False
     for idx_file in range(n_files):
