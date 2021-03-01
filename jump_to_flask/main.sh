@@ -1,4 +1,5 @@
-export PYTHONPATH=/Users/youngjae/Documents/git/flask_tutorial/jump_to_flask
-export FLASK_APP=__init__
+# export PYTHONPATH=/Users/youngjae/Documents/git/flask_tutorial/pybo
+# unset FLASK_APP
+# export FLASK_APP=/Users/youngjae/Documents/git/flask_tutorial/pybo/__init__
 
 flask run
