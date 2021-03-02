@@ -26,7 +26,9 @@ def create_app():
     # register blueprint
     from .views import main_views
     from .views import question_views
+    from .views import answer_views
     app.register_blueprint(main_views.blue_print)
     app.register_blueprint(question_views.blue_print)
+    app.register_blueprint(answer_views.blue_print)
 
     return app
