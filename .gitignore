@@ -1,4 +1,11 @@
 *.pyc
 */__pycache__
+
+# Jupyter notebook
+.ipynb_checkpoints/
+
+# DB
 migrations/
 *.db
+*.db-shm
+*.db-wal

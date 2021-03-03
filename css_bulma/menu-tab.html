@@ -1,0 +1,35 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ninja Coffee</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">  <!--bulma-->
+</head>
+<body>
+
+    <!-- tab menu -->
+    <div class="tabs is-boxed">
+        <ul>
+            <li class="is-active" data-target="product-a"><a>Product A</a></li>
+
+            <li data-target="product-b"><a>Product B</a></li>
+        </ul>
+    </div>
+
+    <!-- tab message -->
+    <div class="px-2" id="tab-content">
+        <div id="product-a">
+            <h3 class="is-size-5 title">Product A</h3>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis dicta sapiente recusandae, nulla eligendi ea eum doloribus, nihil autem quaerat praesentium debitis ipsum! Deleniti, tempore corporis sunt nobis esse natus!</p>
+        </div>
+
+        <div class="is-hidden" id="product-b">
+            <h3 class="is-size-5 title">Product B</h3>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis dicta sapiente recusandae, nulla eligendi ea eum doloribus, nihil autem quaerat praesentium debitis ipsum! Deleniti, tempore corporis sunt nobis esse natus!</p>
+        </div>
+    </div>
+
+    <script src="js/index.js"></script>
+</body>
+</html>
