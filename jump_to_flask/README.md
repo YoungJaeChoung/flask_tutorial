@@ -13,6 +13,11 @@
 |- config.py
 ```
 
+
+# RUN
+```python
+```
+
 # DB
 ```python
 flask db init
